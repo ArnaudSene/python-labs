@@ -1,6 +1,12 @@
 from django.urls import path
+from rest_framework import routers
+
 from posts.views import ListBlogPosts, CreateBlogPost, UpdateBlogPost, \
-    ShowBlogPost, DeleteBlogPost
+    ShowBlogPost, DeleteBlogPost, ListBlogPostsAPI
+
+router = routers.DefaultRouter()
+router.register('posts-list', ListBlogPostsAPI)
+
 
 app_name = "posts"
 urlpatterns = [
