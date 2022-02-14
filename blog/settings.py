@@ -37,14 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',   # Manually added
-    'django_filters',   # Manually added
-    'rest_framework.authtoken',   # Manually added
-    'dj_rest_auth',   # Manually added
+    'rest_framework',   # Manually added REST API
+    'django_filters',   # Manually added REST API
+    'rest_framework.authtoken',   # Manually added REST API
+    'dj_rest_auth',   # Manually added REST API
+    'drf_yasg',   # Manually added for SWAGGER API
     'posts',    # Manually added
 ]
 
-# Manually added
+# Manually added REST API
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -67,7 +68,7 @@ ROOT_URLCONF = 'blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"], # Manually added
+        'DIRS': [BASE_DIR / "templates"],  # Manually added
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,4 +137,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+# Manually added for SWAGGER API
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': '/admin/login/',
+    'LOGOUT_URL': '/admin/logout/',
+}
