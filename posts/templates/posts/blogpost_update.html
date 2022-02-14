@@ -1,0 +1,14 @@
+{% extends 'core.html' %}
+
+{% block title %}
+    <title>Update a post</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Update a post</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Update">
+    </form>
+{% endblock %}
