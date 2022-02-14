@@ -10,8 +10,8 @@ router.registry.extend(posts_router.registry)
 router.registry.extend(user_management_router.registry)
 
 urlpatterns = [
+    path('api/', include(router.urls), name='api'),
     path('admin/', admin.site.urls),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('', include('posts.urls')),
-    path('api/', include(router.urls), name='api')
 ]
