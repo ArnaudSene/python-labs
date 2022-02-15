@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, \
-    DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, \
+    DetailView, DeleteView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
@@ -11,7 +11,7 @@ from posts.serializers import Serializer
 
 
 class ListBlogPostsAPI(viewsets.ModelViewSet):
-    """"""
+    """ListBlogPostsAPI."""
 
     queryset = BlogPost.objects.all()
     serializer_class = Serializer

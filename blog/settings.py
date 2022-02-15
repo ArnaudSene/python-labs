@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',   # Manually added
-    'django_filters',   # Manually added
-    'rest_framework.authtoken',   # Manually added
-    'dj_rest_auth',   # Manually added
+    'rest_framework',   # Manually added REST API
+    'django_filters',   # Manually added REST API
+    'rest_framework.authtoken',   # Manually added REST API
+    'dj_rest_auth',   # Manually added REST API
     'posts',    # Manually added
 ]
 
