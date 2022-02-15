@@ -3,11 +3,12 @@ from rest_framework import serializers
 from posts.models import BlogPost
 
 
-class Serializer(serializers.ModelSerializer):
-    """"""
+class Serializer(serializers.HyperlinkedModelSerializer):
+    """Serializer."""
 
     class Meta:
-        """"""
+        """Meta."""
 
         model = BlogPost
-        fields = "__all__"
+        fields = ['url', 'id', 'title', 'author', 'last_updated', 'created_on',
+                  'published', 'content']

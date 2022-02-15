@@ -28,6 +28,14 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    # OTHER SETTINGS
+}
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +49,7 @@ INSTALLED_APPS = [
     'django_filters',   # Manually added REST API
     'rest_framework.authtoken',   # Manually added REST API
     'dj_rest_auth',   # Manually added REST API
+    'drf_spectacular',  # Manually added for swagger OpenAPI 3.0
     'posts',    # Manually added
 ]
 
@@ -49,8 +58,12 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
 }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,7 +80,7 @@ ROOT_URLCONF = 'blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"], # Manually added
+        'DIRS': [BASE_DIR / "templates"],  # Manually added
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,4 +149,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
