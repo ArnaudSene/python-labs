@@ -1,8 +1,32 @@
 #  Django 4.0 Swagger OpenAPI 3.0 Postgres 2.5 Python 3.9
+- 
 - PYTHON 3.9 
 - DJANGO 4.0
 - POSTGRES 2.5
 - SWAGGER OpenAPI 3.0
+
+# required
+
+- python 3.9
+- postgres 2.5
+
+# Usage 
+```shell
+git clone git@gitlab.com:halia-ca/arnaud-dev.git
+git checkout django4-swagger3-postgres25
+python3.9 -m venv venv39
+. venv39/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+
+bash prepare_database.sh
+cd core
+python manage.py runserver
+```
+
+# installation guide
+https://docs.halia.ca/en/resources/python/django/dj4-swagger3-postgres25
+
 
 ## URLS definition
 ```python
