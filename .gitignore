@@ -1,4 +1,5 @@
 .idea/
+.env
 venv39/
 *.pyc
 *__pycache__/
