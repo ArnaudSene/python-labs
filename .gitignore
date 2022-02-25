@@ -1,0 +1,9 @@
+__pycache__/
+.DS_Store
+.idea/
+.coverage
+build/
+dist/
+*.egg-info/
+docs/build/
+output/
