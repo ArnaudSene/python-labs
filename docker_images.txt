@@ -1,0 +1,11 @@
+root@pyapi:~/apps/fatsapi-trafik-tls/simplefeed# docker images
+REPOSITORY                          TAG         IMAGE ID       CREATED         SIZE
+arnaud-dev_panel                    latest      f995883e8050   28 hours ago    1.46GB
+arnaud-dev_streamlit                latest      dbd8a3e8e4d1   28 hours ago    1.42GB
+arnaud-dev_backend                  latest      27c659a62d43   28 hours ago    991MB
+python                              3.8         d5453fc7b6f7   47 hours ago    909MB
+tiangolo/uvicorn-gunicorn-fastapi   python3.9   ae7af924b174   4 months ago    991MB
+traefik                             v2.3        ddb0268e5b5f   13 months ago   92.4MB
+
+
+

@@ -1,0 +1,75 @@
+version: '3'
+
+services:
+  keycloak:
+    image: jboss/keycloak
+    env_file: /root/apps/fatsapi-trafik-tls/traefik-forward-auth-keycloak/keycloak.env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - traefik_public
+      - internal
+    deploy:
+      labels:
+        # traefik
+        - traefik.enable=true
+        - traefik.docker.network=traefik_public
+
+        # traefikv1
+        - traefik.frontend.rule=Host:keycloak.pyapps.site
+        - traefik.port=8080
+
+        # traefikv2
+        - "traefik.http.routers.keycloak.rule=Host(`keycloak.pyapps.site`)"
+        - "traefik.http.routers.keycloak.entrypoints=https"
+        - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
+
+  keycloak-db:
+    env_file: /root/apps/fatsapi-trafik-tls/traefik-forward-auth-keycloak/keycloak.env
+    image: postgres:10.1
+    volumes:
+      - /root/apps/fatsapi-trafik-tls/traefik-forward-auth-keycloak/database:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - internal
+
+  keycloak-db-backup:
+    image: postgres:10.1
+    env_file: /root/apps/fatsapi-trafik-tls/traefik-forward-auth-keycloak/keycloak-backup.env
+    volumes:
+      - /root/apps/fatsapi-trafik-tls/traefik-forward-auth-keycloak/database-dump:/dump
+      - /etc/localtime:/etc/localtime:ro
+    entrypoint: |
+      bash -c 'bash -s <<EOF
+      trap "break;exit" SIGHUP SIGINT SIGTERM
+      sleep 2m
+      while /bin/true; do
+        pg_dump -Fc > /dump/dump_\`date +%d-%m-%Y"_"%H_%M_%S\`.psql
+        (ls -t /dump/dump*.psql|head -n $$BACKUP_NUM_KEEP;ls /dump/dump*.psql)|sort|uniq -u|xargs rm -- {}
+        sleep $$BACKUP_FREQUENCY
+      done
+      EOF'
+    networks:
+      - internal
+
+  traefik-forward-auth:
+    image: funkypenguin/traefik-forward-auth
+    env_file: /root/apps/fatsapi-trafik-tls/traefik-forward-auth-keycloak/traefik-forward-auth.env
+    networks:
+      - traefik_public
+    deploy:
+      labels:
+        - traefik.port=4181
+        - traefik.frontend.rule=Host:auth.pyapps.site
+        - traefik.frontend.auth.forward.address=http://traefik-forward-auth:4181
+        - traefik.frontend.auth.forward.trustForwardHeader=true
+
+
+networks:
+  traefik_public:
+    external: true
+  internal:
+    driver: overlay
+    ipam:
+      config:
+        - subnet: 172.16.49.0/24
